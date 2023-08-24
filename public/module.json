@@ -1,0 +1,38 @@
+{
+  "id": "pf2e-expanded-summoner",
+  "title": "PF2E Exanded Summoner",
+  "description": "Additional automation support for the Summoner class in Pathfinder 2nd Edition.",
+  "authors": [
+    {
+    "name": "PF2E Expanded Summoner"
+    }
+  ],
+  "esmodules": [
+    "pf2e-expanded-summoner.js"
+  ],
+  "version": "0.1.1",
+  "manifest": "https://github.com/dcoffee/pf2e-expanded-summoner/releases/latest/download/module.json",
+  "download": "https://github.com/dcoffee/pf2e-expanded-summoner/releases/latest/download/pf2e-expanded-summoner.zip",
+  "url": "https://github.com/dcoffee/pf2e-expanded-summoner",
+  "license": "https://github.com/dcoffee/pf2e-expanded-summoner/blob/master/LICENSE",
+  "readme": "https://github.com/dcoffee/pf2e-expanded-summoner/blob/master/README.md",
+  "bugs": "https://github.com/dcoffee/pf2e-expanded-summoner/issues",
+  "changelog": "https://github.com/dcoffee/pf2e-expanded-summoner/blob/master/CHANGELOG.md",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11.307"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json",
+        "compatibility": {
+          "minimum": "5.0.2",
+          "verified": "5.3.2"
+        }
+      }
+    ]
+  }
+}
