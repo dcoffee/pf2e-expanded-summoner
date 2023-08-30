@@ -81,6 +81,7 @@
         "../../../pf2e/types"
     ],
     "exclude": [
-        "../../../pf2e/src/module/migration/**/*"
+        "../../../pf2e/src/module/migration/**/*",
+        "../../../pf2e/types/foundry/scripts/*"
     ]
   }

@@ -1,6 +1,5 @@
-import type { ActorPF2e } from "../types/pf2e/src/module/actor/index.d.ts";
-
-import { getSettingFlag } from "./settings.mts";
+import type { ActorSourcePF2e } from "@actor/data/index.js";
+import type { ActorPF2e } from "../../types/pf2e/src/module/actor/index.js";
 
 type ShareSummonerHpRecord = {
     destinationActorId: string;
@@ -8,17 +7,7 @@ type ShareSummonerHpRecord = {
     sharedHpTotal: number;
 };
 
-const onPreUpdateActor = async (actor: ActorPF2e, data: DocumentUpdateData<ActorPF2e>) => {
-    if (!getSettingFlag("shareSummonerHp")) {
-        return;
-    }
-
-    const sourceHpData = data?.system?.attributes?.hp;
-
-    if (!sourceHpData) {
-        return;
-    }
-
+const adjustSharedHp = async (actor: ActorPF2e, sourceHpData: Required<ActorSourcePF2e["system"]["attributes"]>["hp"]) => {
     const shareSummonerHp = actor?.flags?.pf2eExpandedSummoner?.shareSummonerHp as ShareSummonerHpRecord;
 
     if (!shareSummonerHp) {
@@ -41,7 +30,7 @@ const onPreUpdateActor = async (actor: ActorPF2e, data: DocumentUpdateData<Actor
 
     const destinationHp = destinationActor.system.attributes.hp ?? { value: 0, temp: 0 };
     destinationHp.value = sourceHpData.value;
-    destinationHp.temp = sourceHpData.temp;
+    destinationHp.temp = {temp: 0, ...sourceHpData}.temp;
 
     await destinationActor.update({
         "system.attributes.hp": destinationHp,
@@ -49,5 +38,5 @@ const onPreUpdateActor = async (actor: ActorPF2e, data: DocumentUpdateData<Actor
 };
 
 export {
-    onPreUpdateActor,
+    adjustSharedHp,
 };

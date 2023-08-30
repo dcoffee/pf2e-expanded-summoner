@@ -20,6 +20,42 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
+    "paths": {
+        "@actor": [
+            "./types/pf2e/src/module/actor/index.ts"
+        ],
+        "@actor/*": [
+            "./types/pf2e/src/module/actor/*"
+        ],
+        "@item": [
+            "./types/pf2e/src/module/item/index.ts"
+        ],
+        "@item/*": [
+            "./types/pf2e/src/module/item/*"
+        ],
+        "@scene": [
+            "./types/pf2e/src/module/scene/index.ts"
+        ],
+        "@scene/*": [
+            "./types/pf2e/src/module/scene/*"
+        ],
+        "@system/*": [
+            "./types/pf2e/src/module/system/*"
+        ],
+        "@module/*": [
+            "./types/pf2e/src/module/*"
+        ],
+        "@scripts/*": [
+            "./types/pf2e/src/scripts/*"
+        ],
+        "@util": [
+            "./types/pf2e/src/util/index.ts"
+        ],
+        "@util/*": [
+            "./types/pf2e/src/util/*"
+        ]
+    },
+
     "typeRoots": [
       "node_modules/@types",
       "types",
@@ -27,5 +63,5 @@
   },
   "include": [
     "src",
-  ]
+  ],
 }
