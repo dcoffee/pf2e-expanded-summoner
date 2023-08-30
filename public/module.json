@@ -10,7 +10,7 @@
   "esmodules": [
     "pf2e-expanded-summoner.js"
   ],
-  "version": "0.1.1",
+  "version": "0.2.0",
   "manifest": "https://github.com/dcoffee/pf2e-expanded-summoner/releases/latest/download/module.json",
   "download": "https://github.com/dcoffee/pf2e-expanded-summoner/releases/latest/download/pf2e-expanded-summoner.zip",
   "url": "https://github.com/dcoffee/pf2e-expanded-summoner",
@@ -20,7 +20,7 @@
   "changelog": "https://github.com/dcoffee/pf2e-expanded-summoner/blob/master/CHANGELOG.md",
   "compatibility": {
     "minimum": "11",
-    "verified": "11.307"
+    "verified": "11.308"
   },
   "relationships": {
     "systems": [
@@ -30,7 +30,7 @@
         "manifest": "https://github.com/foundryvtt/pf2e/releases/latest/download/system.json",
         "compatibility": {
           "minimum": "5.0.2",
-          "verified": "5.3.2"
+          "verified": "5.4"
         }
       }
     ]
