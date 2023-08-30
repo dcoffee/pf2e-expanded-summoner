@@ -1,11 +1,14 @@
-console.log("Hello World! This code runs immediately when the file is loaded.");
+import type { ActorPF2e } from "../types/pf2e/src/module/actor/index.d.ts";
 
-//@ts-ignore
-Hooks.on("init", function() {
-  console.log("This code runs once the Foundry VTT software begins its initialization workflow.");
+import { registerSettingFlag } from "./settings.mts";
+import { onPreUpdateActor } from "./shared-hp.mts";
+
+Hooks.once("init", () => {
+  registerSettingFlag("shareSummonerHp", "Share Eidolon and Summoner HP");
 });
 
-//@ts-ignore
-Hooks.on("ready", function() {
-  console.log("This code runs once core initialization is ready and game data is available.");
+Hooks.on("preUpdateActor", async (actor, data) => {
+  await onPreUpdateActor(actor as ActorPF2e, data as DocumentUpdateData<ActorPF2e>);
+
+  return true;
 });

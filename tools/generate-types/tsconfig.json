@@ -1,0 +1,86 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "declarationMap": false,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "allowImportingTsExtensions": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "baseUrl": "../../../pf2e",
+        "rootDir": "../../../pf2e",
+        "outDir": "../../types/pf2e",
+        "allowUnusedLabels": false,
+        "removeComments": false,
+        "resolveJsonModule": true,
+        "useDefineForClassFields": true,
+        "noErrorTruncation": true,
+        "paths": {
+            "@actor": [
+                "src/module/actor/index.ts"
+            ],
+            "@actor/*": [
+                "src/module/actor/*"
+            ],
+            "@item": [
+                "src/module/item/index.ts"
+            ],
+            "@item/*": [
+                "src/module/item/*"
+            ],
+            "@scene": [
+                "src/module/scene/index.ts"
+            ],
+            "@scene/*": [
+                "src/module/scene/*"
+            ],
+            "@system/*": [
+                "src/module/system/*"
+            ],
+            "@module/*": [
+                "src/module/*"
+            ],
+            "@scripts/*": [
+                "src/scripts/*"
+            ],
+            "@util": [
+                "src/util/index.ts"
+            ],
+            "@util/*": [
+                "src/util/*"
+            ]
+        },
+        "types": [
+            "jest",
+            "jquery",
+            "node",
+            "tooltipster"
+        ],
+        "typeRoots": [
+            "../../../pf2e/node_modules/@types",
+        ]
+    },
+    "include": [
+        ".",
+        "../../../pf2e/src",
+        "../../../pf2e/types"
+    ],
+    "exclude": [
+        "../../../pf2e/src/module/migration/**/*"
+    ]
+  }
