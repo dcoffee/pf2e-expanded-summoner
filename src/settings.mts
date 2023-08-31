@@ -1,4 +1,4 @@
-const MODULE_NAME = "pf2e-expanded-summoner";
+import { MODULE_NAME } from "./constants.mts";
 
 const validFlags = [
     "shareSummonerHp",

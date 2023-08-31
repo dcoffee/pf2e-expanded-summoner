@@ -1,38 +1,28 @@
 import type { ActorSourcePF2e } from "@actor/data/index.js";
-import type { ActorPF2e } from "../../types/pf2e/src/module/actor/index.js";
+import type { ActorPF2e } from "@actor/index.js";
+import type { ExpandedSummonerFlags } from "../types/expandedSummonerFlags.js";
+import { FLAGS_ITEM_UUID } from "../flags-item/constants.mts";
 
-type ShareSummonerHpRecord = {
-    destinationActorId: string;
-    isSourceOfTruth: boolean;
-    sharedHpTotal: number;
-};
-
-const adjustSharedHp = async (actor: ActorPF2e, sourceHpData: Required<ActorSourcePF2e["system"]["attributes"]>["hp"]) => {
-    const shareSummonerHp = actor?.flags?.pf2eExpandedSummoner?.shareSummonerHp as ShareSummonerHpRecord;
-
-    if (!shareSummonerHp) {
-        return;
+const adjustSharedHp = async (
+    sourceHpData: Required<ActorSourcePF2e["system"]["attributes"]>["hp"],
+    flags: ExpandedSummonerFlags,
+    destination: ActorPF2e,
+    maxHp: Maybe<number>) => {
+    if (flags.role === "summoner" && maxHp) {
+        const flagsItem = destination.items.find((item) => item.sourceId === FLAGS_ITEM_UUID);
+        
+        await flagsItem?.update({
+            "flags.pf2eExpandedSummoner.hpPool": maxHp,
+            }, { noHook: true });
     }
 
-    const { destinationActorId, isSourceOfTruth } = shareSummonerHp;
+    const destinationHp = {
+        ...destination.system.attributes.hp,
+        value: sourceHpData.value,
+        temp: {temp: 0, ...sourceHpData}.temp
+    };
 
-    const destinationActor = await fromUuid<ActorPF2e>(destinationActorId);
-
-    if (!destinationActor) {
-        throw new Error("Missing destinationActorId");
-    }
-
-    if (isSourceOfTruth && actor.system.attributes.hp?.max) {
-        await destinationActor.update({
-            "flags.pf2eExpandedSummoner.shareSummonerHp.sharedHpTotal": actor.system.attributes.hp.max,
-        }, { "noHook": true });
-    }
-
-    const destinationHp = destinationActor.system.attributes.hp ?? { value: 0, temp: 0 };
-    destinationHp.value = sourceHpData.value;
-    destinationHp.temp = {temp: 0, ...sourceHpData}.temp;
-
-    await destinationActor.update({
+    await destination.update({
         "system.attributes.hp": destinationHp,
     }, { "noHook": true });
 };

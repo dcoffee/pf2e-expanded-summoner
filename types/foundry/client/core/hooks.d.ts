@@ -20,6 +20,7 @@ declare global {
     type HookParamsPreCreateItem = HookParameters<
         "preCreateItem",
         [
+            Item<Actor<TokenDocument<Scene | null> | null> | null>,
             PreCreate<foundry.documents.ItemSource>,
             DocumentModificationContext<Actor<TokenDocument<Scene | null> | null> | null>,
             string
