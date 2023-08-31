@@ -4,7 +4,7 @@ import type { ExpandedSummonerFlags } from "../types/expandedSummonerFlags.js";
 import { FLAGS_ITEM_UUID } from "../flags-item/constants.mts";
 
 const adjustSharedHp = async (
-    sourceHpData: Required<ActorSourcePF2e["system"]["attributes"]>["hp"],
+    sourceHpData: Partial<ActorSourcePF2e["system"]["attributes"]["hp"]>,
     flags: ExpandedSummonerFlags,
     destination: ActorPF2e,
     maxHp: Maybe<number>) => {
@@ -18,8 +18,8 @@ const adjustSharedHp = async (
 
     const destinationHp = {
         ...destination.system.attributes.hp,
-        value: sourceHpData.value,
-        temp: {temp: 0, ...sourceHpData}.temp
+        ...{value: sourceHpData?.value},
+        ...{temp: {temp: undefined, ...sourceHpData}.temp},
     };
 
     await destination.update({

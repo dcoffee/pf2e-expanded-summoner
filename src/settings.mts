@@ -2,6 +2,7 @@ import { MODULE_NAME } from "./constants.mts";
 
 const validFlags = [
     "shareSummonerHp",
+    "autoDismiss",
 ] as const;
 
 type SettingsFlag = typeof validFlags[number];

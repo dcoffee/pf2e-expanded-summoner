@@ -17,15 +17,39 @@ declare global {
     type HookParamsGetSceneControlButtons = HookParameters<"getSceneControlButtons", [SceneControl[]]>;
     type HookParamsHotbarDrop = HookParameters<"hotbarDrop", [Hotbar, unknown, string]>;
     type HookParamsLightingRefresh = HookParameters<"lightingRefresh", [LightingLayer]>;
-    type HookParamsPreCreateItem = HookParameters<
+    type HookParamsPreCreateItem<
+        T extends Item<Actor<TokenDocument<Scene | null> | null> | null>,
+        U extends foundry.documents.ItemSource,
+    > = HookParameters<
         "preCreateItem",
         [
-            Item<Actor<TokenDocument<Scene | null> | null> | null>,
-            PreCreate<foundry.documents.ItemSource>,
+            T,
+            PreCreate<U>,
             DocumentModificationContext<Actor<TokenDocument<Scene | null> | null> | null>,
             string
         ]
     >;
+    type HookParamsPreUpdateActor<
+        T extends Actor<TokenDocument<Scene | null> | null>,
+        U extends foundry.documents.ActorSource,
+    > = HookParameters<
+        "preUpdateActor",
+        [
+            T,
+            DeepPartial<U>
+        ]
+    >;
+    type HookParamsUpdateActor<
+        T extends Actor<TokenDocument<Scene | null> | null>,
+        U extends foundry.documents.ActorSource,
+    > = HookParameters<
+        "updateActor",
+        [
+            T,
+            DeepPartial<U>
+        ]
+    >;
+
     type HooksParamsPreUpdateCombat = HookParameters<
         "preUpdateCombat",
         [Combat, object, { diff: boolean; advanceTime: number; [key: string]: unknown }, string]
@@ -74,6 +98,8 @@ declare global {
         static on(...args: HookParamsHotbarDrop): number;
         static on(...args: HookParamsLightingRefresh): number;
         static on(...args: HookParamsPreCreateItem): number;
+        static on(...args: HookParamsPreUpdateActor): number;
+        static on(...args: HookParamsUpdateActor): number;
         static on(...args: HooksParamsPreUpdateCombat): number;
         static on(...args: HookParamsPreUpdateToken): number;
         static on(...args: HookParamsRenderChatMessage): number;

@@ -1,18 +1,22 @@
 import type { ActorPF2e } from "@module/documents.js";
 
 import { getExpandedSummonerFlags, getFlagsItem } from "../flags-item/getFlagsItem.mts";
+import { ExpandedSummonerFlags } from "../types/expandedSummonerFlags.js";
 
-export async function getLinkedActor(source: ActorPF2e) {
+export async function getLinkedActor(source: ActorPF2e): Promise<{
+    linkedActor?: ActorPF2e;
+    sourceFlags?: ExpandedSummonerFlags;
+}> {
     const sourceItem = getFlagsItem(source);
 
     if (!sourceItem) {
-        throw new Error("No expanded summoner flags item on source.");
+        return {};
     }
 
     const sourceFlags = getExpandedSummonerFlags(sourceItem);
     
     if (!sourceFlags) {
-        throw new Error("No expanded summoner flags on source item.")
+        return {};
     }
 
     const linkedActor = game.actors.get(sourceFlags.linkUuid)
@@ -32,11 +36,11 @@ export async function getLinkedActor(source: ActorPF2e) {
         });
 
     if (!linkedActor) {
-        throw new Error("No destination actor.");
+        return {};
     }
 
     if (linkedActor._id !== sourceFlags.linkUuid) {
-        console.log("assigning link UUID");
+        console.log("assigning link UUID", linkedActor, sourceFlags);
         await sourceItem.update({
             "flags.pf2eExpandedSummoner.linkUuid":linkedActor._id,
         }

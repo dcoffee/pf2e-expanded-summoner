@@ -1,8 +1,7 @@
 import { ActorPF2e } from "@actor/base.js";
-import { FLAGS_ITEM_UUID } from "./constants.mts";
+import { FLAGS_ITEM_UUID, FLAGS_PATH } from "./constants.mts";
 import { ItemPF2e } from "@item/base.js";
 import { ExpandedSummonerFlags } from "../types/expandedSummonerFlags.js";
-import { MODULE_NAME } from "../constants.mts";
 
 export function getFlagsItem(
     actor: ActorPF2e,
@@ -14,9 +13,19 @@ export function getExpandedSummonerFlags(
     item: ItemPF2e,
 ): Maybe<ExpandedSummonerFlags> {
     return {
-        hpPool: item.getFlag(MODULE_NAME, "hpPool") as number ?? 0,
-        linkUuid: item.getFlag(MODULE_NAME, "linkUuid") as string ?? "",
+        hpPool: getProperty(item, `${FLAGS_PATH}.hpPool`) as number ?? 0,
+        linkUuid: getProperty(item, `${FLAGS_PATH}.linkUuid`) as string ?? "",
         role: item.flags.pf2e.rulesSelections.role as "eidolon" | "summoner" ?? "summoner",
         slug: item.slug ?? "",
     };
+}
+
+export function getFlagsFromActor(actor: ActorPF2e): Maybe<ExpandedSummonerFlags> {
+    const item = getFlagsItem(actor);
+
+    if (!item) {
+        return;
+    }
+
+    return getExpandedSummonerFlags(item);
 }
