@@ -7,7 +7,7 @@ import { pf2eEndTurn_ForwardToEidolon, pf2eStartTurn_ForwardToEidolon } from "./
 Hooks.once("init", () => {
   registerSettingFlag("shareSummonerHp", "Share Eidolon and Summoner HP");
   registerSettingFlag("autoDismiss", "Remove Eidolon tokens at 0 HP");
-  registerSettingFlag("eidolonCombatant", "Treat Eidolons as combatants");
+  registerSettingFlag("eidolonCombatant", "Automate Eidolon's turn-based effects");
 });
 
 Hooks.on("preUpdateActor", preUpdateActor_SharedHp);
