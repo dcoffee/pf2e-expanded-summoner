@@ -1,8 +1,12 @@
+import type { StartEndTurnCallback } from "../types/hooks.js";
+
 import { getLinkedActor } from "../link-actors/getLinkedActors.mts";
 import { getSettingFlag } from "../settings.mts";
-import { StartEndTurnCallback } from "../types/hooks.js";
+import { showEidolonStatusEffects } from "./showEidolonStatusEffects.mts";
+import { updateEffectsOnTurnStart } from "./updateEffectsOnTurnStart.mts";
+import { updateEffectsOnTurnEnd } from "./updateEffectsOnTurnEnd.mts";
 
-export const pf2eStartTurn_ForwardToEidolon: StartEndTurnCallback = async (combatant, _encounter) => {
+export const pf2eStartTurn_ForwardToEidolon: StartEndTurnCallback = async (combatant, encounter) => {
     if (!getSettingFlag("eidolonCombatant")) {
         return;
     }
@@ -17,10 +21,11 @@ export const pf2eStartTurn_ForwardToEidolon: StartEndTurnCallback = async (comba
         return;
     }
 
+    await showEidolonStatusEffects(combatant, encounter, linkedActor);
+
+    // Run any turn start events
     const actorUpdates: Record<string, unknown> = {};
 
-    // Run any turn start events before the effect tracker updates.
-    // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
     for (const rule of linkedActor.rules) {
         await rule.onTurnStart?.(actorUpdates);
     }
@@ -30,28 +35,7 @@ export const pf2eStartTurn_ForwardToEidolon: StartEndTurnCallback = async (comba
         await linkedActor.update(actorUpdates);
     }
 
-    // Effect changes on turn start/end
-    for (const effect of linkedActor.itemTypes.effect) {
-        effect.prepareBaseData();
-        await effect.onTurnStartEnd("start");
-
-        const { remaining } = effect.remainingDuration;
-        const { expiry } = effect.system.duration;
-        const { origin } = effect;
-        const startInitiative = effect.system.start.initiative ?? 0;
-        const currentInitiative = combatant.initiative ?? 0;
-
-        if (origin == linkedActor
-            && remaining === 0
-            && expiry === "turn-start"
-            && startInitiative === currentInitiative) {
-            
-            await effect.update({ "system.context.origin.actor": `Actor.${combatant.actorId}` });
-        }
-    }
-
-    await game.pf2e.effectTracker.refresh();
-    game.pf2e.effectPanel.refresh();
+    await updateEffectsOnTurnStart(combatant, linkedActor);
 };
 
 export const pf2eEndTurn_ForwardToEidolon: StartEndTurnCallback = async (combatant, _encounter) => {
@@ -75,9 +59,5 @@ export const pf2eEndTurn_ForwardToEidolon: StartEndTurnCallback = async (combata
         await condition.onEndTurn({ token: linkedActor.getActiveTokens(true, true).pop() });
     }
 
-    // Effect changes on turn start/end
-    for (const effect of linkedActor.itemTypes.effect) {
-        effect.prepareBaseData();
-        await effect.onTurnStartEnd("end");
-    }
+    await updateEffectsOnTurnEnd(linkedActor);
 };
