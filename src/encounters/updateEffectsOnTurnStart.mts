@@ -34,7 +34,7 @@ export async function updateEffectsOnTurnStart(combatant: CombatantPF2e, eidolon
             && actorId !== null
             && effect.actor.primaryUpdater === game.user) {
                 actorsWithDeletions.add(effect.actor);
-                deletions[actorId] = deletions[actorId] ?? [];
+                deletions[actorId] ??= [];
                 deletions[actorId].push(effect.id);
         }
     }
