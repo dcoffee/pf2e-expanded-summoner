@@ -2,7 +2,7 @@ type ExpandedSummonerFlagsRole = "eidolon" | "summoner";
 
 type BaseFlags = {
     role: ExpandedSummonerFlagsRole;
-    slug: string;
+    discriminator: string;
     hpPool: number;
     linkUuid: string;
 }

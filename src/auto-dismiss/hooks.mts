@@ -1,4 +1,4 @@
-import { getFlagsFromActor } from "../flags-item/getFlagsItem.mts";
+import { getExpandedSummonerFlags } from "../flags/getExpandedSummonerFlags.mts";
 import { getSettingFlag } from "../settings.mts";
 import { UpdateActorCallback } from "../types/hooks.js";
 
@@ -7,7 +7,7 @@ export const updateActor_dismissEidolon: UpdateActorCallback = async (actor, dat
         return;
     }
 
-    const flags = getFlagsFromActor(actor);
+    const flags = getExpandedSummonerFlags(actor);
 
     if (!flags || flags.role !== "eidolon") {
         return;
