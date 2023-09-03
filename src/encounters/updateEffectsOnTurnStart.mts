@@ -1,7 +1,9 @@
 import type { ActorPF2e } from "@actor/index.js";
 import type { CombatantPF2e } from "@module/encounter/index.js";
 
-export async function updateEffectsOnTurnStart(combatant: CombatantPF2e, eidolon: ActorPF2e) {
+export async function updateEffectsOnTurnStart(
+    combatant: CombatantPF2e,
+    eidolon: ActorPF2e) {
     // Prepare and run turn start updates for effects on the Eidolon
     for (const effect of eidolon.itemTypes.effect) {
         effect.prepareBaseData();
@@ -10,7 +12,7 @@ export async function updateEffectsOnTurnStart(combatant: CombatantPF2e, eidolon
 
     // Look for any effects which should expire at the start of turn and remove them
     // This includes effects on the Eidolon and effects created by the Eidolon
-    const actorsWithDeletions: Set<ActorPF2e> = new Set<ActorPF2e>();
+    const actorsToUpdate: Set<ActorPF2e> = new Set<ActorPF2e>();
 
     const deletions: {
         [actorId: string]: string[];
@@ -33,21 +35,60 @@ export async function updateEffectsOnTurnStart(combatant: CombatantPF2e, eidolon
             && startInitiative === currentInitiative
             && actorId !== null
             && effect.actor.primaryUpdater === game.user) {
-                actorsWithDeletions.add(effect.actor);
+                actorsToUpdate.add(effect.actor);
                 deletions[actorId] ??= [];
                 deletions[actorId].push(effect.id);
         }
     }
 
-    for (const actor of actorsWithDeletions) {
-        if (actor._id !== null) {
-            await actor.deleteEmbeddedDocuments(
-                "Item",
-                deletions[actor._id],
-            );
+    if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+        for (const actor of actorsToUpdate) {
+            if (actor._id !== null) {
+                await actor.deleteEmbeddedDocuments(
+                    "Item",
+                    deletions[actor._id],
+                );
+            }
         }
+    } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
+        resetActors(actorsToUpdate);
     }
+
 
     // ensure the effects panel is up to date
     game.pf2e.effectPanel.refresh();
+}
+
+// copied from pf2e @actor/helpers
+// Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
+async function resetActors(actors?: Iterable<ActorPF2e>, { rerender = true } = {}): Promise<void> {
+    actors ??= [
+        game.actors.contents,
+        game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
+    ].flat();
+
+    for (const actor of actors) {
+        actor.reset();
+        if (rerender) actor.render();
+    }
+    game.pf2e.effectPanel.refresh();
+
+    // If expired effects are automatically removed, the actor update cycle will reinitialize vision
+    const refreshScenes =
+        game.settings.get("pf2e", "automation.effectExpiration") &&
+        !game.settings.get("pf2e", "automation.removeExpiredEffects");
+
+    if (refreshScenes) {
+        const scenes = new Set(
+            Array.from(actors)
+                .flatMap((a) => a.getActiveTokens(false, true))
+                .flatMap((t) => t.scene)
+        );
+        for (const scene of scenes) {
+            scene.reset();
+            if (scene.isView) {
+                canvas.perception.update({ initializeVision: true }, true);
+            }
+        }
+    }
 }
