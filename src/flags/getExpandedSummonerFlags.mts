@@ -11,5 +11,7 @@ export function getExpandedSummonerFlags(
         linkUuid: getProperty(actor, `${FLAGS_PATH}.linkUuid`) as string ?? "",
         role: getProperty(actor, `${FLAGS_PATH}.role`) as ExpandedSummonerFlagsRole ?? "summoner",
         discriminator: getProperty(actor, `${FLAGS_PATH}.discriminator`) as string ?? "",
+        summonerSpellProficiency: getProperty(actor, `${FLAGS_PATH}.summonerSpellProficiency`) as number ?? 0,
+        summonerSpellAttribute: getProperty(actor, `${FLAGS_PATH}.summonerSpellAttribute`) as number ?? 0,
     };
 }

@@ -3,7 +3,8 @@ import { MODULE_NAME } from "./constants.mts";
 const validFlags = [
     "shareSummonerHp",
     "autoDismiss",
-    "eidolonCombatant"
+    "eidolonCombatant",
+    "substituteSummonerSpellBonus",
 ] as const;
 
 type SettingsFlag = typeof validFlags[number];

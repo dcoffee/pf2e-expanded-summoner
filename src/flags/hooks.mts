@@ -8,6 +8,8 @@ export const preCreateItem_flagsItem: PreCreateItemCallback = async (item) => {
             "flags.pf2eExpandedSummoner": {
                 hpPool: 0,
                 linkUuid: "",
+                summonerSpellProficiency: 0,
+                summonerSpellAttribute: 0,
             }
         });
     }

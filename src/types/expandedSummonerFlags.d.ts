@@ -3,12 +3,14 @@ type ExpandedSummonerFlagsRole = "eidolon" | "summoner";
 type BaseFlags = {
     role: ExpandedSummonerFlagsRole;
     discriminator: string;
-    hpPool: number;
     linkUuid: string;
 }
 
 type EidolonFlags = BaseFlags & {
     role: "eidolon";
+    hpPool: number;
+    summonerSpellProficiency: number;
+    summonerSpellAttribute: number;
 }
 
 type SummonerFlags = BaseFlags & {
