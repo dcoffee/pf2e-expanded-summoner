@@ -1,9 +1,9 @@
+import type { ActorPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AbilityItemPF2e, ArmorPF2e, WeaponPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
-import { ActorPF2e } from "@module/documents.ts";
 import { SheetOptions } from "@module/sheet/helpers.ts";
 import type { CharacterPF2e } from "./document.ts";
 /** Handle weapon traits that introduce modifiers or add other weapon traits */

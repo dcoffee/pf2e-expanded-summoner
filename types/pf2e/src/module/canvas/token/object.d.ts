@@ -1,8 +1,8 @@
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { TokenLayerPF2e } from "../index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { Renderer } from "pixi.js";
+import { type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
-import { Renderer } from "pixi.js";
 declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     #private;
     /** Visual representation and proximity-detection facilities for auras */
@@ -60,8 +60,7 @@ declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e>
     distanceTo(target: TokenPF2e, { reach }?: {
         reach?: number | null;
     }): number;
-    /** Add a callback for when a movement animation finishes */
-    animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void>;
+    animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e<this>): Promise<void>;
     /** Hearing should be updated whenever vision is */
     updateVisionSource({ defer, deleted }?: {
         defer?: boolean | undefined;
@@ -101,4 +100,7 @@ type ShowFloatyEffectParams = number | {
 } | {
     delete: NumericFloatyEffect;
 };
-export { ShowFloatyEffectParams, TokenPF2e };
+interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e = TokenPF2e> extends TokenAnimationOptions<TObject> {
+    spin?: boolean;
+}
+export { ShowFloatyEffectParams, TokenAnimationOptionsPF2e, TokenPF2e };

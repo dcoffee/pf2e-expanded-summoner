@@ -57,6 +57,7 @@ type BlastConfigSchema = {
     dieFaces: NumberField<6 | 8, 6 | 8, true, false, false>;
 };
 type BlastInfusionSchema = {
+    damageTypes: ArrayField<StringField<DamageType, DamageType, true, false, false>>;
     range: SchemaField<{
         increment: NumberField<number, number, true, false, false>;
         max: NumberField<number, number, true, false, false>;
@@ -94,7 +95,7 @@ interface ElementalBlastConfig extends Omit<ModelPropsFromSchema<BlastConfigSche
 interface BlastConfigDamageType {
     value: DamageType;
     label: string;
+    icon: string;
     selected: boolean;
-    glyph: string;
 }
 export { ElementalBlast, ElementalBlastConfig };

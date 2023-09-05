@@ -5,7 +5,7 @@ import { RawModifier } from "@actor/modifiers.ts";
 declare const KINGDOM_SCHEMA: {
     type: StringField<"kingmaker", "kingmaker", true, false, boolean>;
     name: StringField<string, string, true, false, boolean>;
-    img: import("types/foundry/common/data/fields.js").FilePathField<`${string}.svg` | `${string}.apng` | `${string}.avif` | `${string}.bmp` | `${string}.gif` | `${string}.jpeg` | `${string}.jpg` | `${string}.png` | `${string}.tiff` | `${string}.webp`, `${string}.svg` | `${string}.apng` | `${string}.avif` | `${string}.bmp` | `${string}.gif` | `${string}.jpeg` | `${string}.jpg` | `${string}.png` | `${string}.tiff` | `${string}.webp`, true, false, true>;
+    img: import("types/foundry/common/data/fields.js").FilePathField<`${string}.apng` | `${string}.avif` | `${string}.bmp` | `${string}.gif` | `${string}.jpeg` | `${string}.jpg` | `${string}.png` | `${string}.svg` | `${string}.tiff` | `${string}.webp`, `${string}.apng` | `${string}.avif` | `${string}.bmp` | `${string}.gif` | `${string}.jpeg` | `${string}.jpg` | `${string}.png` | `${string}.svg` | `${string}.tiff` | `${string}.webp`, true, false, true>;
     capital: StringField<"", "", true, false, boolean>;
     size: import("types/foundry/common/data/fields.js").NumberField<number, number, true, false, true>;
     level: import("types/foundry/common/data/fields.js").NumberField<number, number, true, false, true>;

@@ -4,18 +4,17 @@ import type { ActorPF2e, ItemPF2e } from "@module/documents.js";
 import type { CombatantPF2e } from "@module/encounter/combatant.js";
 import type { EncounterPF2e } from "@module/encounter/document.js";
 import type { ScenePF2e, TokenDocumentPF2e } from "@module/scene/index.js";
-import { ActorSheetPF2e } from "@actor/sheet/base.js";
+import type { ActorSheetPF2e } from "@actor/sheet/base.js";
 
-export type PreUpdateActorCallback = HookParamsPreUpdateActor<ActorPF2e,ActorSourcePF2e>[1];
+export type PreUpdateActorCallback = HookCallback<[ActorPF2e,DeepPartial<ActorSourcePF2e>]>;
 
-export type UpdateActorCallback = HookParamsUpdateActor<ActorPF2e,ActorSourcePF2e>[1];
+export type UpdateActorCallback = HookCallback<[ActorPF2e,DeepPartial<ActorSourcePF2e>]>;
 
-export type PreCreateItemCallback = HookParamsPreCreateItem<ItemPF2e,ItemSourcePF2e>[1];
+export type PreCreateItemCallback = HookCallback<[ItemPF2e,DeepPartial<ItemSourcePF2e>]>;
 
 export type StartEndTurnCallback = HookCallback<[
     CombatantPF2e,
     EncounterPF2e,
-    string,
 ]>;
 
 export type PreUpdateItemCallback = HookCallback<[
@@ -26,5 +25,5 @@ export type PreUpdateItemCallback = HookCallback<[
 export type RenderActorSheetCallback = HookCallback<[
     ActorSheetPF2e<ActorPF2e>,
     JQuery,
-    ReturnType<ActorSheetPF2e<ActorPF2e>["getData"]>
+    ReturnType<ActorSheetPF2e<ActorPF2e>["data"]>
 ]>;

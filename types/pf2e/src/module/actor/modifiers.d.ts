@@ -160,11 +160,13 @@ interface CreateAbilityModifierParams {
  * Create a modifier for a given proficiency level of some ability.
  * @returns The modifier for the given proficiency rank and character level.
  */
-declare function createProficiencyModifier({ actor, rank, domains, addLevel }: CreateProficiencyModifierParams): ModifierPF2e;
+declare function createProficiencyModifier({ actor, rank, domains, level, addLevel, }: CreateProficiencyModifierParams): ModifierPF2e;
 interface CreateProficiencyModifierParams {
     actor: ActorPF2e;
     rank: ZeroToFour;
     domains: string[];
+    /** If given, use this value instead of actor.level */
+    level?: number;
     addLevel?: boolean;
 }
 /**

@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
 import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
-import { AbilityData, BaseCreatureSource, CreatureAttributes, CreatureDetails, CreatureResources, CreatureSystemData, CreatureSystemSource, CreatureTraitsData, HeldShieldData, SaveData, SkillAbbreviation, SkillData } from "@actor/creature/data.ts";
+import { AbilityData, BaseCreatureSource, CreatureAttributes, CreatureDetails, CreatureDetailsSource, CreatureResources, CreatureSystemData, CreatureSystemSource, CreatureTraitsData, HeldShieldData, SaveData, SkillAbbreviation, SkillData } from "@actor/creature/data.ts";
 import { Alignment, CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource, SenseData } from "@actor/creature/index.ts";
 import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { AbilityBasedStatistic, ActorAttributesSource, ActorFlagsPF2e, HitPointsStatistic, InitiativeData, PerceptionData, StrikeData, TraitViewData } from "@actor/data/base.ts";
@@ -93,7 +93,7 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
 interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "size"> {
     senses?: SenseData[];
 }
-interface CharacterDetailsSource {
+interface CharacterDetailsSource extends CreatureDetailsSource {
     alignment: {
         value: Alignment;
     };
@@ -365,7 +365,7 @@ interface CharacterResources extends CreatureResources {
 interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
-interface CharacterDetails extends CreatureDetails, CharacterDetailsSource {
+interface CharacterDetails extends Omit<CharacterDetailsSource, "alliance">, CreatureDetails {
     /** Convenience information for easy access when the item class instance isn't available */
     ancestry: {
         name: string;

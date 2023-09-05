@@ -1,8 +1,7 @@
-import Document, { _Document } from "types/foundry/common/abstract/document.js";
-import { DataSchema } from "types/foundry/common/data/fields.js";
 import { SceneFlagsPF2e } from "./data.ts";
-import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e, TokenDocumentPF2e } from "./index.ts";
-import { SceneConfigPF2e } from "./sheet.ts";
+import type { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e } from "./index.ts";
+import { TokenDocumentPF2e } from "./index.ts";
+import type { SceneConfigPF2e } from "./sheet.ts";
 declare class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean;
@@ -20,7 +19,7 @@ declare class ScenePF2e extends Scene {
     prepareBaseData(): void;
     /** Redraw auras if the scene was activated while being viewed */
     _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void;
-    protected _onDeleteDescendantDocuments(parent: this, collection: string, documents: Document<_Document | null, DataSchema>[], ids: string[], options: DocumentModificationContext<this>, userId: string): void;
+    protected _onDeleteDescendantDocuments(parent: this, collection: string, documents: foundry.abstract.Document[], ids: string[], options: DocumentModificationContext<this>, userId: string): void;
 }
 interface ScenePF2e extends Scene {
     flags: SceneFlagsPF2e;

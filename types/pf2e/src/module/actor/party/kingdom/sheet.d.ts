@@ -9,16 +9,14 @@ import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { SheetOptions } from "@module/sheet/helpers.ts";
+import { SheetOption, SheetOptions } from "@module/sheet/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { PartyPF2e } from "../document.ts";
 import { Kingdom } from "./model.ts";
 import { KingdomAbilityData, KingdomData, KingdomLeadershipData } from "./types.ts";
-declare const KINGDOM_TRAITS: string[];
-type KingdomTrait = (typeof KINGDOM_TRAITS)[number];
 declare class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     #private;
-    protected selectedFilter: KingdomTrait | null;
+    protected selectedFilter: string | null;
     constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>);
     get kingdom(): Kingdom;
     get title(): string;
@@ -54,7 +52,7 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     }[];
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
-    actionFilterChoices: SheetOptions;
+    actionFilterChoices: SheetOption[];
 }
 interface LeaderSheetData extends KingdomLeadershipData {
     actor: ActorPF2e | null;

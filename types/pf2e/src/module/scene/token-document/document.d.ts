@@ -1,11 +1,12 @@
 import { ActorPF2e } from "@actor";
 import { PrototypeTokenPF2e } from "@actor/data/base.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
-import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
-import { ScenePF2e, TokenConfigPF2e } from "@scene/index.ts";
-import { ActorDeltaPF2e } from "./actor-delta.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
+import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import type { ScenePF2e } from "../document.ts";
+import type { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
+import type { TokenConfigPF2e } from "./sheet.ts";
 declare class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     #private;
     /** Has this token gone through at least one cycle of data preparation? */
@@ -53,7 +54,6 @@ declare class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | n
     /** Toggle token hiding if this token's actor is a loot actor */
     protected _onCreate(data: this["_source"], options: DocumentModificationContext<TParent>, userId: string): void;
     protected _onUpdate(changed: DeepPartial<this["_source"]>, options: DocumentUpdateContext<TParent>, userId: string): void;
-    /** Reinitialize vision if the actor's senses were updated directly */
     protected _onRelatedUpdate(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
     protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 }

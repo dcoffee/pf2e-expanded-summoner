@@ -6,7 +6,7 @@ import { LootPF2e } from "@actor/loot/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ItemPF2e } from "@item";
-import { ActorPF2e } from "@module/documents.ts";
+import type { ActorPF2e } from "@actor";
 export declare class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActor> {
     #private;
     static get defaultOptions(): ActorSheetOptions;

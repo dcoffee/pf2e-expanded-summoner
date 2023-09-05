@@ -6,6 +6,7 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import { RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, ZeroToTwo } from "@module/data.ts";
@@ -18,7 +19,6 @@ import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types.ts";
-import { RangeData } from "@item/types.ts";
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     fromConsumable?: boolean;
 }

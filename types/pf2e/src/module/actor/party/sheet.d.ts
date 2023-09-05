@@ -2,6 +2,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
 import { ActorPF2e } from "@actor";
+import { HitPointsSummary } from "@actor/base.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { ItemPF2e } from "@item";
@@ -32,6 +33,9 @@ declare class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     protected _onDropActor(event: ElementDragEvent, data: DropCanvasData<"Actor", PartyPF2e>): Promise<false | void>;
 }
 interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
+    /** Is the sheet restricted to players? */
+    playerRestricted: boolean;
+    /** Is the sheet restricted to the current user? */
     restricted: boolean;
     members: MemberBreakdown[];
     overviewSummary: {
@@ -80,12 +84,7 @@ interface MemberBreakdown {
         labelFull: string;
         acuity?: string;
     }[];
-    hp: {
-        showValue: boolean;
-        temp: number;
-        value: number;
-        max: number;
-    };
+    hp: HitPointsSummary;
     activities: {
         uuid: string;
         name: string;

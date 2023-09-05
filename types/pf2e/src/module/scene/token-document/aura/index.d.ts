@@ -23,11 +23,8 @@ declare class TokenAura implements TokenAuraData {
     get squares(): EffectAreaSquare[];
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: TokenDocumentPF2e): boolean;
-    /**
-     * Notify tokens' actors if they are inside an aura in this collection
-     * @param [specific] A limited list of tokens whose actors will be notified
-     */
-    notifyActors(specific?: TokenDocumentPF2e[]): Promise<void>;
+    /** Notify tokens' actors if they are inside an aura in this collection */
+    notifyActors(): Promise<void>;
 }
 interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     slug: string;

@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor/base.ts";
-import { Abilities, BaseCreatureSource, CreatureAttributes, CreatureDetails, CreatureInitiativeSource, CreatureResources, CreatureResourcesSource, CreatureSpeeds, CreatureSystemData, CreatureSystemSource, CreatureTraitsData, CreatureTraitsSource, HeldShieldData, LabeledSpeed, SaveData } from "@actor/creature/data.ts";
+import { Abilities, BaseCreatureSource, CreatureAttributes, CreatureDetails, CreatureDetailsSource, CreatureInitiativeSource, CreatureResources, CreatureResourcesSource, CreatureSpeeds, CreatureSystemData, CreatureSystemSource, CreatureTraitsData, CreatureTraitsSource, HeldShieldData, LabeledSpeed, SaveData } from "@actor/creature/data.ts";
 import { ActorAttributesSource, ActorFlagsPF2e, HitPointsStatistic, PerceptionData, StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { InitiativeTraceData } from "@actor/initiative.ts";
@@ -60,7 +60,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
         value: string;
     };
 }
-interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
+interface NPCDetailsSource extends CreatureDetailsSource {
     level: {
         value: number;
     };
@@ -152,7 +152,7 @@ interface NPCAttributes extends Omit<NPCAttributesSource, "initiative" | "immuni
     bonusEncumbranceBulk: number;
     bonusLimitBulk: number;
 }
-interface NPCDetails extends NPCDetailsSource {
+interface NPCDetails extends NPCDetailsSource, CreatureDetails {
     level: {
         value: number;
         /** The presence of a `base` that is different from the `value` indicates the level was adjusted. */

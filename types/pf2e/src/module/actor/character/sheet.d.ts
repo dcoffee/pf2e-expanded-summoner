@@ -1,6 +1,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
+import type { ActorPF2e } from "@actor";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
@@ -10,7 +11,6 @@ import { ItemSourcePF2e } from "@item/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ActorPF2e } from "@module/documents.ts";
 import { SheetOptions } from "@module/sheet/helpers.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";

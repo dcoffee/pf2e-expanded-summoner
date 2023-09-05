@@ -1,9 +1,9 @@
 /// <reference types="jquery" resolution-mode="require"/>
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { RangeData } from "@item/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { ChatMessagePF2e } from "@module/documents.ts";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ConvertedNPCDamage } from "@system/damage/weapon.ts";
 import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
 declare class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {

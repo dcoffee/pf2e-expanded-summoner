@@ -51,7 +51,6 @@ interface ActorDetailsSource {
         value: number;
     };
     alliance?: ActorAlliance;
-    creature?: unknown;
 }
 interface ActorSystemData extends ActorSystemSource {
     abilities?: Abilities;
