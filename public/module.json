@@ -4,6 +4,7 @@
   "description": "Additional automation support for the Summoner class in Pathfinder 2nd Edition.",
   "authors": [
     {
+      "name": "dcoffee",
       "url": "https://github.com/dcoffee"
     }
   ],
