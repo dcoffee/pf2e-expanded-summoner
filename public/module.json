@@ -11,7 +11,7 @@
   "esmodules": [
     "pf2e-expanded-summoner.js"
   ],
-  "version": "0.4.0",
+  "version": "0.4.1",
   "manifest": "https://github.com/dcoffee/pf2e-expanded-summoner/releases/latest/download/module.json",
   "download": "https://github.com/dcoffee/pf2e-expanded-summoner/releases/latest/download/pf2e-expanded-summoner.zip",
   "url": "https://github.com/dcoffee/pf2e-expanded-summoner",
