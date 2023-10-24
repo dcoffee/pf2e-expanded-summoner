@@ -1,5 +1,4 @@
 import type { ActorSourcePF2e } from "@actor/data/index.js";
-import type { ActorPF2e } from "@actor/index.js";
 import type { ExpandedSummonerFlags } from "../types/expandedSummonerFlags.js";
 
 import { setHpPool } from "./setHpPool.mts";
@@ -7,8 +6,13 @@ import { setHpPool } from "./setHpPool.mts";
 const adjustSharedHp = async (
     sourceHpData: Partial<ActorSourcePF2e["system"]["attributes"]["hp"]>,
     flags: ExpandedSummonerFlags,
-    destination: ActorPF2e,
     maxHp: Maybe<number>) => {
+    const destination = flags.linkedActor;
+
+    if (!destination) {
+        return;
+    }
+    
     if (flags.role === "summoner" && maxHp) {
         setHpPool(destination, maxHp);
     }

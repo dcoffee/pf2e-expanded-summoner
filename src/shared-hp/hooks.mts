@@ -2,7 +2,7 @@ import type { PreUpdateActorCallback } from "../types/hooks.js";
 
 import { getSettingFlag } from "../settings.mts";
 import { adjustSharedHp } from "./adjustSharedHp.mts";
-import { getLinkedActor } from "../link-actors/getLinkedActors.mts";
+import { getExpandedSummonerFlags } from "../flags/getExpandedSummonerFlags.mts";
 
 export const preUpdateActor_SharedHp: PreUpdateActorCallback = async (actor, data) => {
     if (!getSettingFlag("shareSummonerHp")) {
@@ -14,14 +14,14 @@ export const preUpdateActor_SharedHp: PreUpdateActorCallback = async (actor, dat
       return;
     }
 
-    const { linkedActor, sourceFlags } = await getLinkedActor(actor);
-    if (!linkedActor || !sourceFlags) {
+    const sourceFlags = getExpandedSummonerFlags(actor);
+
+    if (!sourceFlags) {
       return;
     }
 
     await adjustSharedHp(
         hpData,
         sourceFlags,
-        linkedActor,
         actor.system.attributes.hp?.max);
 };

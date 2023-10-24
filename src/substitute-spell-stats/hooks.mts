@@ -1,9 +1,9 @@
 import type { PreUpdateItemCallback } from "../types/hooks.js";
 
 import { getSettingFlag } from "../settings.mts";
-import { getLinkedActor } from "../link-actors/getLinkedActors.mts";
 import { getFlagsItem } from "../flags/getFlagsItem.mts";
 import { substituteSpellStats } from "./substituteSpellStats.mts";
+import { getExpandedSummonerFlags } from "../flags/getExpandedSummonerFlags.mts";
 
 export const preUpdateItem_SubstituteSpellcastingBonus: PreUpdateItemCallback = async (item) => {
     if (!getSettingFlag("substituteSummonerSpellBonus")) {
@@ -21,12 +21,12 @@ export const preUpdateItem_SubstituteSpellcastingBonus: PreUpdateItemCallback = 
       return;
     }
 
-    const { linkedActor, sourceFlags } = await getLinkedActor(item.actor);
-    if (!linkedActor || sourceFlags?.role !== "summoner") {
+    const sourceFlags = getExpandedSummonerFlags(item.actor);
+    if (sourceFlags?.role !== "summoner" || !sourceFlags.linkedActor) {
       return;
     }
     
-    const destinationItem = getFlagsItem(linkedActor);
+    const destinationItem = getFlagsItem(sourceFlags.linkedActor);
 
     if (!destinationItem) {
       return;

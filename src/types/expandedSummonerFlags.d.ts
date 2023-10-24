@@ -1,9 +1,11 @@
+import { ActorPF2e } from "@actor/base.js";
+
 type ExpandedSummonerFlagsRole = "eidolon" | "summoner";
 
 type BaseFlags = {
     role: ExpandedSummonerFlagsRole;
     discriminator: string;
-    linkUuid: string;
+    linkedActor: Maybe<ActorPF2e>;
 }
 
 type EidolonFlags = BaseFlags & {

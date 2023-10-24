@@ -12,9 +12,12 @@ export function getExpandedSummonerFlags(
         return;
     }
 
+    const linkUuid =  getProperty(actor, `${FLAGS_PATH}.linkUuid`) as string ?? "";
+    const linkedActor =  game.actors.get(linkUuid);
+
     return {
         hpPool: getProperty(actor, `${FLAGS_PATH}.hpPool`) as number ?? 0,
-        linkUuid: getProperty(actor, `${FLAGS_PATH}.linkUuid`) as string ?? "",
+        linkedActor,
         role,
         discriminator: getProperty(actor, `${FLAGS_PATH}.discriminator`) as string ?? "",
         summonerSpellProficiency: getProperty(actor, `${FLAGS_PATH}.summonerSpellProficiency`) as number ?? 0,
